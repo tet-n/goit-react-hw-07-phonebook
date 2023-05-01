@@ -17,7 +17,7 @@ export class App extends Component {
     };
     const isAlreadyInContacts = this.state.contacts.some(
       contact =>
-        contact.name.toLowerCase === name.toLowerCase() &&
+        contact.name.toLowerCase() === name.toLowerCase() ||
         contact.number === number
     );
 
@@ -33,13 +33,10 @@ export class App extends Component {
     this.setState({ filter });
   };
 
-  onUpdateList = (contacts, filter) => {
-    if (!filter.length) return contacts;
-    const filteredUsers = contacts.filter(contact =>
+  onUpdateList = contacts => {
+    return contacts.filter(contact =>
       contact.name.toLowerCase().match(this.state.filter.toLowerCase())
     );
-
-    return filteredUsers;
   };
 
   removeContact = id => {
@@ -49,8 +46,8 @@ export class App extends Component {
   };
 
   render() {
-    const { contacts, filter } = this.state;
-    const filteredContacts = this.onUpdateList(contacts, filter);
+    const { contacts } = this.state;
+    const filteredContacts = this.onUpdateList(contacts);
     return (
       <Phonebook>
         <Title>Phonebook</Title>
