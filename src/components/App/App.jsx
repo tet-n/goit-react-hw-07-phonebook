@@ -10,7 +10,6 @@ export const App = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    console.log('first'); // Чому запускається 2 рази за першого рендерингу?
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
@@ -33,7 +32,7 @@ export const App = () => {
       alert(`${name} is already in contacts`);
       return;
     }
-    setContacts(s => [...s, newContact]);
+    setContacts(prevContacts => [...prevContacts, newContact]);
   };
 
   const updateList = contacts => {
@@ -43,7 +42,7 @@ export const App = () => {
   };
 
   const removeContact = id => {
-    setContacts(s => s.filter(contact => contact.id !== id));
+    setContacts(contacts => contacts.filter(contact => contact.id !== id));
   };
 
   return (

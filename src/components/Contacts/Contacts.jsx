@@ -47,6 +47,6 @@ Contacts.propTypes = {
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
     })
-  ),
+  ).isRequired,
   removeContact: PropTypes.func.isRequired,
 };
