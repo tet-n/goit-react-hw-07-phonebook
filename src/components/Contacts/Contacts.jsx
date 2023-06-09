@@ -10,10 +10,11 @@ import {
 } from './Contacts.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeContact } from 'redux/contactsSlice';
+import { getContacts, getFilter } from 'redux/selectors';
 
 export const Contacts = () => {
-  const contacts = useSelector(state => state.contacts);
-  const filter = useSelector(state => state.filter);
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
   const visibleContacts = (() => {
@@ -50,14 +51,3 @@ export const Contacts = () => {
     </Table>
   );
 };
-
-// Contacts.propTypes = {
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       number: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-//   removeContact: PropTypes.func.isRequired,
-// };
