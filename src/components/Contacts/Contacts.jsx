@@ -13,11 +13,19 @@ import { removeContact } from 'redux/contactsSlice';
 
 export const Contacts = () => {
   const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
+
+  const visibleContacts = (() => {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  })();
+
   return (
     <Table>
       <tbody>
-        {contacts.map(({ name, id, number }) => {
+        {visibleContacts.map(({ name, id, number }) => {
           return (
             <TR key={id}>
               <THName>{name}</THName>
