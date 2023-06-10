@@ -2,11 +2,6 @@ import styled from '@emotion/styled';
 import { mq } from 'styles/mediaQuery';
 
 export const Form = styled.form`
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; */
-
   margin-bottom: 32px;
 
   width: 100%;
@@ -36,6 +31,12 @@ export const Input = styled.input`
   font-size: ${({ theme }) => theme.fontSizes.small};
   border-radius: 4px;
   outline: none;
+  transition: ${({ theme }) =>
+    `border ${theme.animation.duration} ${theme.animation.cubicBezier}`};
+
+  :focus {
+    border: ${({ theme }) => `${theme.colors.active} solid 2px`};
+  }
 `;
 
 export const Button = styled.button`

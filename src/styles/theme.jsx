@@ -6,6 +6,7 @@ export const theme = Object.freeze({
     lightBlue: '#B8DBD9',
     ghostWhite: '#F4F4F9',
     white: '#fff',
+    active: '#5f9fcc',
   },
   fontSizes: {
     small: '16px',
