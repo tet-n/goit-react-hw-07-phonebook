@@ -1,38 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+export const contactsApi = createApi({
+  reducerPath: 'contacts',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://6488c9520e2469c038fe5d51.mockapi.io',
+  }),
+  tagTypes: ['Contact'],
+  endpoints: builder => ({
+    getContacts: builder.query({
+      query: () => `/contacts`,
+      providesTags: ['Contact'],
+    }),
 
-const contactsInitialState = {
-  contactList: [],
-};
+    addContact: builder.mutation({
+      query: ({ name, number }) => ({
+        url: '/contacts',
+        method: 'POST',
+        body: { name, number },
+      }),
+      invalidatesTags: ['Contact'],
+    }),
 
-const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState: contactsInitialState,
-  reducers: {
-    addContact(state, { payload }) {
-      state.contactList.push(payload);
-    },
-    removeContact(state, { payload }) {
-      // return state.contactList.filter(contact => contact.id !== payload); // Чому такий метод не спрацював? У разі видалення просто повертав undefined. Мені  треба повернутися на курс JS?))
-
-      const index = state.contactList.findIndex(
-        contact => contact.id === payload
-      );
-      state.contactList.splice(index, 1);
-    },
-  },
+    deleteContact: builder.mutation({
+      query: id => ({
+        url: `/contacts/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Contact'],
+    }),
+  }),
 });
 
-const persistConfig = {
-  key: 'contacts',
-  storage,
-};
-
-export const persistedContactsReducer = persistReducer(
-  persistConfig,
-  contactsSlice.reducer
-);
-
-export const { addContact, removeContact } = contactsSlice.actions;
+export const {
+  useGetContactsQuery,
+  useAddContactMutation,
+  useDeleteContactMutation,
+} = contactsApi;
