@@ -11,8 +11,8 @@ const contactsSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
   reducers: {
-    addContact(state, { payload: { name, number, id } }) {
-      state.contactList.push({ name, number, id });
+    addContact(state, { payload }) {
+      state.contactList.push(payload);
     },
     removeContact(state, { payload }) {
       // return state.contactList.filter(contact => contact.id !== payload); // Чому такий метод не спрацював? У разі видалення просто повертав undefined. Мені  треба повернутися на курс JS?))
